@@ -44,7 +44,7 @@ document.getElementById("disagreeBtn").addEventListener("click", function() {
     // 设置新的缩放比例
     this.style.transform = `scale(${newScale})`;
 
-    // 如果按钮缩小到一定程度，隐藏它
+    // 按钮缩小到一定程度并隐藏
     if (newScale < 0.01) {
         this.style.opacity = 0;
         this.style.pointerEvents = "none"; // 禁用按钮的交互
