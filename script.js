@@ -1,10 +1,6 @@
 // 全局引用
 const rCanvas = document.getElementById("roseCanvas");
 const rCtx    = rCanvas.getContext("2d");
-const pCanvas = document.getElementById("particleCanvas");
-const pCtx    = pCanvas.getContext("2d");
-
-let particles = [];
 
 // —— 绘制玫瑰 —— 
 function drawRose() {
@@ -49,68 +45,9 @@ function drawRose() {
   rCtx.fill();
 }
 
-// —— 粒子系统 —— 
-function resizeParticleCanvas() {
-  pCanvas.width  = window.innerWidth;
-  pCanvas.height = window.innerHeight;
-}
-window.addEventListener("resize", resizeParticleCanvas);
-resizeParticleCanvas();
-
-class Particle {
-  constructor(x,y,vx,vy,size,life,img) {
-    Object.assign(this, {x,y,vx,vy,size,life,img});
-  }
-  update() {
-    this.x += this.vx;
-    this.y += this.vy;
-    this.vy += 0.02; // 重力
-    this.life--;
-  }
-  draw() {
-    if (this.img.complete) {
-      pCtx.drawImage(
-        this.img,
-        this.x - this.size/2, this.y - this.size/2,
-        this.size, this.size
-      );
-    } else {
-      pCtx.beginPath();
-      pCtx.arc(this.x, this.y, this.size/2, 0, Math.PI*2);
-      pCtx.fillStyle = "rgba(230,57,80,0.8)";
-      pCtx.fill();
-    }
-  }
-}
-
-const petalImg = new Image();
-petalImg.src = "path/to/rose-petal.png"; // 换成你自己的花瓣图片
-
-function spawnParticle() {
-  const x    = Math.random() * pCanvas.width;
-  const y    = -20;
-  const vx   = (Math.random() - 0.5) * 1;
-  const vy   = Math.random() * 1 + 0.5;
-  const size = Math.random() * 20 + 10;
-  const life = 200 + Math.random() * 100;
-  particles.push(new Particle(x,y,vx,vy,size,life,petalImg));
-}
-
-function particleLoop() {
-  pCtx.clearRect(0, 0, pCanvas.width, pCanvas.height);
-  if (particles.length < 100) spawnParticle();
-  for (let i = particles.length - 1; i >= 0; i--) {
-    const p = particles[i];
-    p.update();
-    p.draw();
-    if (p.life <= 0 || p.y > pCanvas.height + 50) particles.splice(i,1);
-  }
-  requestAnimationFrame(particleLoop);
-}
-
 // —— 按钮交互 —— 
 function setupButtons() {
-  // 初始就画一次玫瑰
+  // 页面加载就画一次玫瑰
   drawRose();
 
   // 同意
@@ -118,8 +55,7 @@ function setupButtons() {
     document.getElementById("agreeBtn").style.display    = "none";
     document.getElementById("disagreeBtn").style.display = "none";
     document.getElementById("message").style.display     = "block";
-    // 保证玫瑰继续保留
-    drawRose();
+    // 玫瑰保持显示
   });
 
   // 不同意
@@ -143,7 +79,5 @@ function setupButtons() {
 }
 
 // —— 初始化 —— 
-window.addEventListener("DOMContentLoaded", () => {
-  setupButtons();
-  particleLoop();
-});
+window.addEventListener("DOMContentLoaded", setupButtons);
+
