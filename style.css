@@ -1,72 +1,79 @@
-/* —— 基本布局 —— */
+/* —— 布局 & 字体 —— */
 body {
+  margin: 0;
+  padding: 0;
   font-family: "Microsoft YaHei", sans-serif;
-  text-align: center;
-  background-color: #ffffff;
-  margin: 0; padding: 0;
+  background: #fff;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   height: 100vh;
-  position: relative;
   overflow: hidden;
+  position: relative;
 }
+
 h1 {
+  z-index: 1;
+  margin-bottom: 20px;
   font-size: 2em;
+}
+
+/* —— 玫瑰画布 —— */
+#roseCanvas {
+  display: block;               /* 页面加载时就可见 */
+  background: rgba(255,255,255,0.8);
+  border-radius: 8px;
+  z-index: 1;
+  margin-bottom: 20px;
+}
+
+/* —— 同意后提示 —— */
+#message {
+  display: none;                /* 默认隐藏 */
+  font-size: 2em;
+  color: #E63950;
   margin-bottom: 20px;
   z-index: 1;
 }
 
-/* —— 按钮样式 —— */
+/* —— 按钮 —— */
 .button-container {
   z-index: 1;
 }
 button {
-  padding: 15px 30px;
-  font-size: 18px;
-  margin: 10px;
-  cursor: pointer;
+  padding: 0.8em 1.5em;
+  font-size: 1em;
+  margin: 0 0.5em;
   border: none;
   border-radius: 5px;
   color: #fff;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  cursor: pointer;
+  transition: transform 0.3s, opacity 0.3s;
 }
 #agreeBtn {
-  background-color: #ff4d6d;
+  background: #ff4d6d;
 }
-#agreeBtn:hover { background-color: #e63950; }
+#agreeBtn:hover {
+  background: #e63950;
+}
 #disagreeBtn {
-  background-color: #999;
+  background: #999;
 }
-#disagreeBtn:hover { background-color: #777; }
-
-/* —— 玫瑰画布 & 提示 —— */
-#roseCanvas {
-  display: block;              /* 默认显示 */
-  margin: 20px auto;
-  z-index: 1;
-  background-color: rgba(255,255,255,0.8);
-  border-radius: 8px;
-}
-#message {
-  display: none;
-  font-size: 2em;
-  color: #E63950;
-  margin-top: 20px;
-  z-index: 1;
+#disagreeBtn:hover {
+  background: #777;
 }
 
-/* —— 不同意按钮缩小动画 —— */
+/* —— 不同意按钮缩小 —— */
 @keyframes shrink {
-  from { transform: scale(1); opacity: 1; }
-  to   { transform: scale(0); opacity: 0; }
+  from { transform: scale(1); opacity: 1 }
+  to   { transform: scale(0); opacity: 0 }
 }
 #disagreeBtn.shrink {
   animation: shrink 0.8s ease-out forwards;
 }
 
-/* —— 粒子花瓣画布 —— */
+/* —— 粒子背景 —— */
 #particleCanvas {
   position: fixed;
   top: 0; left: 0;
@@ -74,11 +81,8 @@ button {
   pointer-events: none;
   z-index: 0;
 }
+/* 确保其它内容在上层 */
 body > *:not(#particleCanvas) {
-  position: relative;
-  z-index: 1;
-}
-
   position: relative;
   z-index: 1;
 }
