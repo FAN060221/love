@@ -1,39 +1,80 @@
+/* —— 基本布局 —— */
 body {
-    font-family: "Microsoft YaHei", sans-serif;
-    text-align: center;
-    background-color: #ffffff;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* 视口高度 */
+  font-family: "Microsoft YaHei", sans-serif;
+  text-align: center;
+  background-color: #ffffff;
+  margin: 0; padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
 }
-
-.container {
-    text-align: center;
-}
-
 h1 {
-    font-size: 2em;
-    margin-bottom: 20px;
+  font-size: 2em;
+  margin-bottom: 20px;
+  z-index: 1;
 }
 
+/* —— 按钮样式 —— */
+.button-container {
+  z-index: 1;
+}
 button {
-    padding: 15px 30px;
-    font-size: 18px;
-    margin: 10px;
-    cursor: pointer;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+  padding: 15px 30px;
+  font-size: 18px;
+  margin: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
-
-button:hover {
-    transform: scale(1.1); /* 鼠标悬停时放大按钮 */
+#agreeBtn {
+  background-color: #ff4d6d;
 }
+#agreeBtn:hover { background-color: #e63950; }
+#disagreeBtn {
+  background-color: #999;
+}
+#disagreeBtn:hover { background-color: #777; }
 
+/* —— 玫瑰画布 & 提示 —— */
 #roseCanvas {
-    display: none; /* 初始隐藏 */
-    margin: 20px auto;
-    background-color: rgba(255, 255, 255, 0.8); /* 半透明背景 */
+  display: none;
+  margin: 20px auto;
+  z-index: 1;
+  background-color: rgba(255,255,255,0.8);
+  border-radius: 8px;
+}
+#message {
+  display: none;
+  font-size: 2em;
+  color: #E63950;
+  margin-top: 20px;
+  z-index: 1;
+}
+
+/* —— 不同意按钮缩小动画 —— */
+@keyframes shrink {
+  from { transform: scale(1); opacity: 1; }
+  to   { transform: scale(0); opacity: 0; }
+}
+#disagreeBtn.shrink {
+  animation: shrink 0.8s ease-out forwards;
+}
+
+/* —— 粒子花瓣画布 —— */
+#particleCanvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+}
+body > *:not(#particleCanvas) {
+  position: relative;
+  z-index: 1;
 }
