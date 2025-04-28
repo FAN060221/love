@@ -43,7 +43,7 @@ button {
 
 /* —— 玫瑰画布 & 提示 —— */
 #roseCanvas {
-  display: none;
+  display: block;              /* 默认显示 */
   margin: 20px auto;
   z-index: 1;
   background-color: rgba(255,255,255,0.8);
@@ -75,6 +75,10 @@ button {
   z-index: 0;
 }
 body > *:not(#particleCanvas) {
+  position: relative;
+  z-index: 1;
+}
+
   position: relative;
   z-index: 1;
 }
